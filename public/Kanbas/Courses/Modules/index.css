@@ -14,7 +14,6 @@
   background-color: lightgray;
   border: 1px solid gray !important;
   border-left: none !important;
-  margin-bottom: 50px;
 }
 
 .wd-modules > li > div {
@@ -25,5 +24,9 @@
 .wd-modules > li > ul > li {
   padding: 5px;
   border-top: 1px solid gray !important;
-  border-left: 3px solid green;
+  border-left: 2px solid green;
+}
+
+.wd-modules > li {
+  margin-bottom: 20px;
 }
