@@ -1,13 +1,13 @@
-function IfElse() {
-  let true1 = true,
-    false1 = false;
-  return (
-    <div>
-      <h2>If Else</h2>
-      {true1 && <p>true1</p>}
-      {!false1 ? <p>!false1</p> : <p>false1</p>}
-    </div>
-  );
+function TernaryOperator() {
+  let loggedIn = true;
+
+  return(
+     <div>
+        <h2>Logged In</h2>
+        { loggedIn ? <p>Welcome</p> : <p>Please login</p> }
+     </div>
+  )
+ 
 }
 
-export default IfElse;
+export default TernaryOperator;

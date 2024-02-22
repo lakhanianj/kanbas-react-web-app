@@ -14,7 +14,7 @@ function Dashboard() {
             <div className="col" style={{ width: "300px" }}>
               <div className="card">
                 <img
-                  src="/images/reactjs.jpg"
+                  src={`/images/${course.image}`}
                   className="card-img-top"
                   style={{ maxHeight: "150px" }}
                 />
@@ -42,7 +42,6 @@ function Dashboard() {
         </div>
       </div>
       <pre>
-        <code>{JSON.stringify(courses, null, 2)}</code>
       </pre>
     </div>
   );

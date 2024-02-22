@@ -1,5 +1,8 @@
+import Add from "../routing/Add";
+import PathParameters from "../routing/PathParameters";
 import MapFunction from "./arrays/MapFunction";
 import WorkingWithArrays from "./arrays/WorkingWithArrays";
+import TernaryOperator from "./conditionals/IfElse";
 import IfElse from "./conditionals/IfElse";
 import ArrowFunctions from "./functions/ArrowFunctions";
 import ES5Functions from "./functions/ES5Functions";
@@ -22,10 +25,11 @@ function JavaScript() {
       <WorkingWithArrays />
       <ArrowFunctions />
       <ES5Functions />
-      <IfElse />
+      <TernaryOperator />
       <BooleanVariables />
       <VariableTypes />
       <VariablesAndConstants />
+
     </div>
   );
 }
