@@ -17,12 +17,23 @@
 .wd-kanbas-navigation > li.wd-active a {
   color: red;
 }
+
 .wd-kanbas-navigation a {
   color: white;
   text-decoration: none;
 }
+
 .wd-kanbas-navigation a i {
   color: red;
   font-size: 2em;
   margin-bottom: 5px;
 }
+.white-icon {
+  color: white !important; /* Override existing color */
+}
+
+.black-icon {
+  color: black !important; /* Override existing color */
+}
+
+
