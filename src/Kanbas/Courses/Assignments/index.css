@@ -1,0 +1,32 @@
+.btn-grey {
+    background-color: lightgrey;
+    color: black;
+  }
+  
+  .btn-red {
+    background-color: red;
+    color: white;
+  }
+  
+  button {
+    background-color: lightgrey;
+    color: black;
+    border: none;
+    margin-left: 5px; /* Add space between buttons */
+  }
+
+  input {
+    margin-right: 50px;
+  }
+
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 5px;
+  }
