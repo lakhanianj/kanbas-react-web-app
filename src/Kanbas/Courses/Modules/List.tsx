@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import { modules } from "../../Database";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle } from "react-icons/fa";
@@ -10,18 +10,43 @@ import {
   deleteModule,
   updateModule,
   setModule,
+  setModules,
 } from "./reducer";
 import { KanbasState } from "../../store";
+import * as client from "./client";
 
 
 function ModuleList() {
   const { courseId } = useParams();
+  useEffect(() => {
+    client.findModulesForCourse(courseId)
+      .then((modules) =>
+        dispatch(setModules(modules))
+      );
+  }, [courseId]);
   const moduleList = useSelector((state: KanbasState) =>
     state.modulesReducer.modules);
   const module = useSelector((state: KanbasState) =>
     state.modulesReducer.module);
   const dispatch = useDispatch();
   const [selectedModule, setSelectedModule] = useState(moduleList[0]);
+
+  const handleAddModule = () => {
+    client.createModule(courseId, module).then((module) => {
+      dispatch(addModule(module));
+    });
+  };
+  const handleDeleteModule = (moduleId: string) => {
+    client.deleteModule(moduleId).then((status) => {
+      dispatch(deleteModule(moduleId));
+    });
+  };
+  const handleUpdateModule = async () => {
+    const status = await client.updateModule(module);
+    dispatch(updateModule(module));
+  };
+
+
 
   return (
     <>
@@ -41,11 +66,11 @@ function ModuleList() {
           <span className="float-end">
 
             <button className="btn btn-success rounded mr-2 ml-2 px-2"
-              onClick={() => dispatch(addModule({ ...module, course: courseId }))}>
+              onClick={handleAddModule}>
               Add
             </button>
             <button className="btn btn-primary rounded mr-2 px-2"
-              onClick={() => dispatch(updateModule(module))}>
+              onClick={handleUpdateModule}>
               Update
             </button>
           </span>
@@ -81,7 +106,7 @@ function ModuleList() {
 
                   <button
                     className="btn rounded btn-danger px-2"
-                    onClick={() => dispatch(deleteModule(module._id))}>
+                    onClick={() => handleDeleteModule(module._id)} >
                     Delete
                   </button>
 
