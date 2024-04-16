@@ -21,7 +21,7 @@ const generateId = (): string => {
 
 const initialState = {
     modules: [],
-    module: { _id: generateId(), name: "New Module 123", description: "New Description" },
+    module: { _id: "NMID", name: "New Module 123", description: "New Description" },
 };
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { modules } from "../../Database";
-import { FaEllipsisV, FaCheckCircle, FaPlusCircle } from "react-icons/fa";
+import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaCaretDown, FaCaretRight } from "react-icons/fa";
 import { useParams } from "react-router";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from "react-redux";
@@ -17,36 +17,41 @@ import * as client from "./client";
 
 
 function ModuleList() {
-  const { courseId } = useParams();
-  useEffect(() => {
-    client.findModulesForCourse(courseId)
-      .then((modules) =>
-        dispatch(setModules(modules))
-      );
-  }, [courseId]);
-  const moduleList = useSelector((state: KanbasState) =>
-    state.modulesReducer.modules);
-  const module = useSelector((state: KanbasState) =>
-    state.modulesReducer.module);
+  const { courseId } = useParams() ?? ("" as string);
+  const moduleList = useSelector(
+    (state: KanbasState) => state.modulesReducer.modules
+  );
+  const module = useSelector(
+    (state: KanbasState) => state.modulesReducer.module
+  );
   const dispatch = useDispatch();
-  const [selectedModule, setSelectedModule] = useState(moduleList[0]);
+
+  const [expanedModuleId, setExpandedModuleId] = useState<string>(
+    moduleList[0] ?? ""
+  );
 
   const handleAddModule = () => {
-    client.createModule(courseId, module).then((module) => {
+    client.createModule(courseId ?? "", module).then((module) => {
       dispatch(addModule(module));
     });
   };
+
   const handleDeleteModule = (moduleId: string) => {
     client.deleteModule(moduleId).then((status) => {
       dispatch(deleteModule(moduleId));
     });
   };
+
   const handleUpdateModule = async () => {
     const status = await client.updateModule(module);
     dispatch(updateModule(module));
   };
 
-
+  useEffect(() => {
+    client
+      .findModulesForCourse(courseId ?? "")
+      .then((modules) => dispatch(setModules(modules)));
+  }, [courseId]);
 
   return (
     <>
@@ -77,8 +82,7 @@ function ModuleList() {
 
           <input className="form-control half-width mb-2" value={module.name}
             onChange={(e) =>
-              dispatch(setModule({ ...module, name: e.target.value }))
-            }
+              dispatch(setModule({ ...module, name: e.target.value }))}
           />
 
           <textarea className="half-width form-control" value={module.description}
@@ -92,11 +96,14 @@ function ModuleList() {
           .map((module, index) => (
             <li key={index}
               className="list-group-item"
-              onClick={() => setSelectedModule(module)}>
-
+              onClick={() => setExpandedModuleId(module._id)}
+            >
               <div>
-                <FaEllipsisV className="me-2" />
-                {module.name}
+                {expanedModuleId === module._id ? (
+                  <FaCaretDown className="mx-2" />
+                ) : (
+                  <FaCaretRight className="mx-2" />
+                )}                {module.name}
                 <span className="float-end">
                   <button
                     className="btn rounded btn-success mr-2 px-2"
@@ -112,7 +119,7 @@ function ModuleList() {
 
                 </span>
               </div>
-              {selectedModule._id === module._id && (
+              {expanedModuleId === module?._id && (
                 <ul className="list-group">
                   {module.lessons?.map((lesson: { name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
                     <li className="list-group-item" key={index}>
