@@ -6,18 +6,22 @@ interface Module {
     description: string;
     course: string;
     lessons?: Lesson[]
-  }
-  
-  interface Lesson {
+}
+
+interface Lesson {
     _id: string;
     name: string;
     description: string;
     module: string;
-  }
+}
+
+const generateId = (): string => {
+    return uuidv4();
+};
 
 const initialState = {
     modules: [],
-    module: { name: "New Module 123", description: "New Description" },
+    module: { _id: generateId(), name: "New Module 123", description: "New Description" },
 };
 
 
@@ -30,7 +34,7 @@ const modulesSlice = createSlice({
         },
         addModule: (state: { modules: Module[] }, action) => {
             state.modules = [action.payload, ...state.modules];
-          },      
+        },
         deleteModule: (state, action) => {
             state.modules = state.modules.filter(
                 (module: Module) => module._id !== action.payload
@@ -55,3 +59,7 @@ const modulesSlice = createSlice({
 export const { addModule, deleteModule,
     updateModule, setModule, setModules } = modulesSlice.actions;
 export default modulesSlice.reducer;
+
+function uuidv4(): string {
+    throw new Error("Function not implemented.");
+}
