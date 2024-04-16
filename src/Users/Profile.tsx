@@ -1,6 +1,6 @@
 import * as client from "./client";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Profile() {
     const [profile, setProfile] = useState({
         username: "", password: "",
@@ -46,6 +46,10 @@ export default function Profile() {
                     <button onClick={save}>
                         Save
                     </button>
+                    <Link to="/Kanbas/Account/Admin/Users"
+                        className="btn btn-warning w-100">
+                        Users
+                    </Link>
                 </div>
             )}
         </div>
