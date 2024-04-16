@@ -7,6 +7,11 @@ export default function Profile() {
         firstName: "", lastName: "", dob: "", email: "", role: "USER"
     });
     const navigate = useNavigate();
+    const signout = async () => {
+        await client.signout();
+        navigate("/Kanbas/Account/Signin");
+    };
+
     const fetchProfile = async () => {
         const account = await client.profile();
         setProfile(account);
@@ -45,6 +50,9 @@ export default function Profile() {
                     </select>
                     <button onClick={save}>
                         Save
+                    </button>
+                    <button onClick={signout}>
+                        Signout
                     </button>
                     <Link to="/Kanbas/Account/Admin/Users"
                         className="btn btn-warning w-100">
